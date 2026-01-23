@@ -16,14 +16,45 @@ export default function RootNavigator() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Welcome"
-        screenOptions={{ headerShown: false }}
+        screenOptions={{ 
+          headerShown: true,
+          headerStyle :{
+            backgroundColor: "#of14220",
+          },
+          headerTintColor: "#e8eaed",
+          headerShadowVisible: false, 
+           headerTitleAlign: "center",
+         }}
       >
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-         <Stack.Screen name="Explore" component={ExploreScreen} />
-         <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
+        <Stack.Screen 
+          name="Welcome" 
+          component={WelcomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ title: "Login" }}
+        />
+        <Stack.Screen 
+          name="Register" 
+          component={RegisterScreen} 
+          options={{ title: "Register" }}
+        />
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ title: "Home", headerBackVisible: false }}
+        />
+        <Stack.Screen 
+          name="Explore" 
+          component={ExploreScreen} 
+          options={{ title: "Explore" }}
+        />
+        <Stack.Screen 
+          name="ListingDetails" 
+          component={ListingDetailsScreen} 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
