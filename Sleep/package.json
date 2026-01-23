@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "api": "json-server --watch db.json --port 4000"
+
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -26,6 +28,7 @@
   "devDependencies": {
     "@types/react": "~19.1.10",
     "baseline-browser-mapping": "^2.9.17",
+    "json-server": "^1.0.0-beta.5",
     "typescript": "~5.9.2"
   }
 }

@@ -12,6 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppContext } from "../context/AppContext";
 
+const API_BASE = "http://10.0.2.2:4000"; //para angela
+
 const COLORS = {
   bg: "#0f1420",
   card: "#121a2a",
@@ -35,25 +37,32 @@ export default function LoginScreen({ navigation }: any) {
     email.trim().length > 3 && displayName.trim().length > 1 && pwd.length >= 3;
 
   const onLogin = async () => {
-    if (!canLogin) return;
+    if (email.trim().length < 3 || pwd.length < 3) return;
 
+    setLoading(true);
     try {
-      // Fake login (de momento)
+      const res = await fetch(
+        `${API_BASE}/users?email=${encodeURIComponent(email.trim().toLowerCase())}&password=${encodeURIComponent(pwd)}`,
+      );
+      const users = await res.json();
+      if (!Array.isArray(users) || users.length === 0) {
+        Alert.alert("Error", "Invalid email or password");
+        return;
+      }
+
       const fakeToken = `token_${Date.now()}`;
-      const user = {
-        id: Date.now(),
-        email: email.trim().toLowerCase(),
-        displayName: displayName.trim(),
-        avatarUri: null,
-      };
+      const user = users[0];
 
       await login({ token: fakeToken, user });
 
-      // Si luego haces navegación condicional por token, ni siquiera hace falta navigate aquí
-      Alert.alert("Success", "Logged in!");
+      navigation.reset({
+        index: 0,
+        routes: [{name: "Home"}],
+        });
     } catch (e) {
-      console.error(e);
       Alert.alert("Error", "Login failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -165,9 +174,7 @@ export default function LoginScreen({ navigation }: any) {
             style={styles.btnGhost}
           >
             <Ionicons name="person-add-outline" size={16} color={COLORS.text} />
-            <Text style={styles.btnGhostText}>
-              no account? Register
-            </Text>
+            <Text style={styles.btnGhostText}>no account? Register</Text>
           </Pressable>
 
           <View style={styles.orRow}>

@@ -13,6 +13,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useAppContext } from "../context/AppContext";
 
+const API_BASE = "http://10.0.2.2:4000"; //para angela
+
 const COLORS = {
   bg: "#0f1420",
   card: "#121a2a",
@@ -55,27 +57,40 @@ export default function RegisterScreen() {
 
     try {
       setLoading(true);
+      const existsRes = await fetch(
+        `${API_BASE}/users?email=${encodeURIComponent(email.trim().toLowerCase())}`
+      );
 
-      const res = await fetch("https://TU_API/register", {
+      const exists =await existsRes.json();
+      if(Array.isArray(exists) && exists.length > 0){
+        Alert.alert("Error", "Email already registered");
+        return;
+      }
+
+      const createRes = await fetch(`${API_BASE}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email,
-          displayName,
+          email: email.trim().toLowerCase(),
+          displayName: displayName.trim(),
           password,
+          avatarUri: null,
         }),
       });
 
-      if (!res.ok) throw new Error("Registration failed");
+      if (!createRes.ok) throw new Error("Registration failed");
+      const createdUser = await createRes.json();
 
-      const data = await res.json();
-
+      const fakeToken = `token_${Date.now()}`;
       await login({
-        token: data.token,
-        user: data.user,
+        token: fakeToken,
+        user: createdUser,
       });
-
-      navigation.navigate("Home" as never);
+      
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Home" as never }],
+      });
     } catch (err) {
       Alert.alert("Error", "Registration failed. Please try again.");
     } finally {

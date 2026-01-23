@@ -19,16 +19,13 @@ export default function WelcomeScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
       <View style={styles.container}>
-        {/* Logo */}
         <View style={styles.logo}>
           <Ionicons name="home-outline" size={36} color={COLORS.primary} />
         </View>
 
-        {/* Title */}
         <Text style={styles.title}>Sleep</Text>
         <Text style={styles.subtitle}>Find your perfect stay</Text>
 
-        {/* Menu */}
         <View style={styles.card}>
           <Pressable
             style={[styles.button, styles.buttonPrimary]}
