@@ -6,7 +6,6 @@ import {
   ScrollView,
   Pressable,
   TextInput,
-  Platform,
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -45,19 +44,18 @@ export default function RegisterScreen() {
 
   const handleRegister = async () => {
     if (!email || !displayName || !password || !confirm) {
-      Alert.alert("Error", "Completa todos los campos");
+      Alert.alert("Error", "Complete all fields");
       return;
     }
 
     if (password !== confirm) {
-      Alert.alert("Error", "Las contraseñas no coinciden");
+      Alert.alert("Error", "Passwords do not match");
       return;
     }
 
     try {
       setLoading(true);
 
-      // POST → requisito obligatorio
       const res = await fetch("https://TU_API/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -68,11 +66,10 @@ export default function RegisterScreen() {
         }),
       });
 
-      if (!res.ok) throw new Error("Registro fallido");
+      if (!res.ok) throw new Error("Registration failed");
 
       const data = await res.json();
 
-      // Guardamos usuario + token en contexto
       await login({
         token: data.token,
         user: data.user,
@@ -80,7 +77,7 @@ export default function RegisterScreen() {
 
       navigation.navigate("Home" as never);
     } catch (err) {
-      Alert.alert("Error", "No se pudo crear la cuenta");
+      Alert.alert("Error", "Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -89,24 +86,22 @@ export default function RegisterScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
       <ScrollView contentContainerStyle={styles.content}>
-        {/* HEADER */}
         <View style={styles.headerCard}>
           <View style={styles.avatar}>
             <Text style={styles.avatarText}>{initials}</Text>
           </View>
-          <Text style={styles.name}>Crear cuenta</Text>
+          <Text style={styles.name}>Create account</Text>
           <Text style={styles.handle}>
-            Reserva alojamientos como en Airbnb
+            Join us and start your journey!
           </Text>
         </View>
 
-        {/* FORM */}
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Datos de usuario</Text>
+          <Text style={styles.cardTitle}>User information</Text>
 
           <Input
             icon="person-outline"
-            placeholder="Nombre visible"
+            placeholder="Display name"
             value={displayName}
             onChangeText={setDisplayName}
           />
@@ -123,7 +118,7 @@ export default function RegisterScreen() {
 
           <Input
             icon="lock-closed-outline"
-            placeholder="Contraseña"
+            placeholder="Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
@@ -132,14 +127,13 @@ export default function RegisterScreen() {
 
           <Input
             icon="lock-closed-outline"
-            placeholder="Confirmar contraseña"
+            placeholder="Confirm password"
             value={confirm}
             onChangeText={setConfirm}
             secureTextEntry
           />
         </View>
 
-        {/* ACTIONS */}
         <View style={styles.card}>
           <Pressable
             style={[styles.button, styles.buttonPrimary]}
@@ -157,15 +151,13 @@ export default function RegisterScreen() {
             onPress={() => navigation.goBack()}
           >
             <Ionicons name="log-in-outline" size={18} color={COLORS.text} />
-            <Text style={styles.buttonText}>Ya tengo cuenta</Text>
+            <Text style={styles.buttonText}>Already have an account</Text>
           </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
-
-/* ---------- COMPONENTES AUX ---------- */
 
 function Input({ icon, ...props }: any) {
   return (

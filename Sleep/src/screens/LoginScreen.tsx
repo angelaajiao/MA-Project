@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import {
-    View,
-    Text,
-    StyleSheet,
-    TextInput,
-    Pressable,
-    Switch,
-    Alert,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  Switch,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppContext } from "../context/AppContext";
 
 const COLORS = {
-    bg: "#0f1420",
-    card: "#121a2a",
-    border: "#1f2b40",
-    text: "#e8eaed",
-    subtext: "#a8b0bd",
-    primary: "#4c9aff",
+  bg: "#0f1420",
+  card: "#121a2a",
+  border: "#1f2b40",
+  text: "#e8eaed",
+  subtext: "#a8b0bd",
+  primary: "#4c9aff",
 };
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }: any) {
   const { login } = useAppContext();
 
   const [email, setEmail] = useState("");
@@ -32,8 +32,8 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
 
   const canLogin =
-  email.trim().length > 3 && displayName.trim().length > 1 && pwd.length >= 3;
-  
+    email.trim().length > 3 && displayName.trim().length > 1 && pwd.length >= 3;
+
   const onLogin = async () => {
     if (!canLogin) return;
 
@@ -62,7 +62,11 @@ export default function LoginScreen() {
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.logoWrap}>
-            <Ionicons name="sparkles-outline" size={28} color={COLORS.primary} />
+            <Ionicons
+              name="sparkles-outline"
+              size={28}
+              color={COLORS.primary}
+            />
           </View>
           <Text style={styles.title}>Login</Text>
           <Text style={styles.subtitle}>Welcome back</Text>
@@ -140,7 +144,9 @@ export default function LoginScreen() {
               <Text style={styles.remember}>Remember me</Text>
             </View>
 
-            <Pressable onPress={() => Alert.alert("Info", "Not implemented yet")}>
+            <Pressable
+              onPress={() => Alert.alert("Info", "Not implemented yet")}
+            >
               <Text style={styles.forgot}>Forgot password?</Text>
             </Pressable>
           </View>
@@ -154,12 +160,14 @@ export default function LoginScreen() {
           </Pressable>
 
           <Pressable
-            onPress={() => Alert.alert("Guest", "Guest mode not implemented yet")}
+            onPress={() => navigation.navigate("Register")}
             android_ripple={{ color: "rgba(255,255,255,0.08)" }}
             style={styles.btnGhost}
           >
-            <Ionicons name="person-outline" size={16} color={COLORS.text} />
-            <Text style={styles.btnGhostText}>Continue as guest</Text>
+            <Ionicons name="person-add-outline" size={16} color={COLORS.text} />
+            <Text style={styles.btnGhostText}>
+              no account? Register
+            </Text>
           </Pressable>
 
           <View style={styles.orRow}>
