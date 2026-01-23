@@ -25,7 +25,7 @@ const COLORS = {
   chipBorder: "rgba(76,154,255,0.25)",
 };
 
-const API_BASE = "http://10.0.2.2:3000"; // <-- cambia el puerto/URL si hace falta
+const API_BASE = "http://10.0.2.2:4000";
 
 type Listing = {
   id: number;
@@ -37,7 +37,7 @@ type Listing = {
 };
 
 export default function ExploreScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const { state } = useAppContext();
 
   const [query, setQuery] = useState("");
@@ -51,7 +51,6 @@ export default function ExploreScreen() {
       setErrorText("");
 
       try {
-        // ✅ GET (requisito)
         const res = await fetch(`${API_BASE}/listings`, {
           method: "GET",
           headers: {
@@ -68,7 +67,6 @@ export default function ExploreScreen() {
         const data = await res.json();
         setItems(Array.isArray(data) ? data : []);
       } catch (e: any) {
-        // 👇 DEMO fallback para que siempre se vea algo
         setErrorText("Using demo data (API not available).");
         setItems([
           { id: 1, title: "Cozy Studio near Center", city: "Barcelona", pricePerNight: 79, rating: 4.7, rooms: 1 },
@@ -95,14 +93,12 @@ export default function ExploreScreen() {
   }, [items, query]);
 
   const goDetails = (listing: Listing) => {
-    // Si todavía no tienes ListingDetails, puedes comentar esto y dejar un console.log
-    navigation.navigate("ListingDetails" as never, { listing } as never);
+    navigation.navigate("ListingDetails", { listing });
   };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Header Card (similar al estilo del profe) */}
         <View style={styles.headerCard}>
           <View style={styles.headerTop}>
             <View style={styles.logo}>
@@ -199,7 +195,6 @@ export default function ExploreScreen() {
   );
 }
 
-/* ---------- UI pieces (mismo estilo profe) ---------- */
 
 function Chip({
   text,
