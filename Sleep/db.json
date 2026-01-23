@@ -6,6 +6,13 @@
       "displayName": "Angela",
       "password": "Angela2004",
       "avatarUri": null
+    },
+    {
+      "id": "68a8",
+      "email": "clau@gmail.com",
+      "displayName": "clau",
+      "password": "1234",
+      "avatarUri": null
     }
   ]
 }
