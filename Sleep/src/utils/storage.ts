@@ -1,11 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Photo } from "../context/AppContext";
+import { User } from "../context/AppContext";
 // Key under which we save data on the phone
-const STORAGE_KEY = "MY_APP_DATA_V1";
+const STORAGE_KEY = "SLEEP_APP_DATA_V1";
+
 type SavedData = {
-  displayName: string;
-  photos: Photo[];
+  user: User | null;
 };
+
 export const saveAppData = async (data: SavedData) => {
   try {
     const jsonValue = JSON.stringify(data);
@@ -14,6 +15,7 @@ export const saveAppData = async (data: SavedData) => {
     console.error("Failed to save data", e);
   }
 };
+
 export const loadAppData = async (): Promise<SavedData | null> => {
   try {
     const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);

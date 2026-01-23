@@ -1,9 +1,7 @@
-// src/context/AppContext.tsx
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { loadAppData, saveAppData } from "../utils/storage";
 
-/** ========== Types ========== */
 export type User = {
   id: number;
   email: string;
