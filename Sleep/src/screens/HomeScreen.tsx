@@ -31,7 +31,7 @@ type Listing = {
 };
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const [featured, setFeatured] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,9 +44,27 @@ export default function HomeScreen() {
         setFeatured(Array.isArray(data) ? data : []);
       } catch {
         setFeatured([
-          { id: 1, title: "Cozy Studio", city: "Barcelona", pricePerNight: 79, rating: 4.7 },
-          { id: 2, title: "Beach Apartment", city: "Valencia", pricePerNight: 120, rating: 4.9 },
-          { id: 3, title: "Mountain Cabin", city: "Andorra", pricePerNight: 95, rating: 4.6 },
+          {
+            id: 1,
+            title: "Cozy Studio",
+            city: "Barcelona",
+            pricePerNight: 79,
+            rating: 4.7,
+          },
+          {
+            id: 2,
+            title: "Beach Apartment",
+            city: "Valencia",
+            pricePerNight: 120,
+            rating: 4.9,
+          },
+          {
+            id: 3,
+            title: "Mountain Cabin",
+            city: "Andorra",
+            pricePerNight: 95,
+            rating: 4.6,
+          },
         ]);
       } finally {
         setLoading(false);
@@ -58,7 +76,10 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Header */}
         <View style={styles.headerCard}>
           <View style={styles.logo}>
@@ -77,7 +98,7 @@ export default function HomeScreen() {
             <Action
               icon="search-outline"
               label="Explore"
-              onPress={() => navigation.navigate("Explore" as never)}
+              onPress={() => navigation.navigate("Explore")}
             />
             <Action
               icon="calendar-outline"
@@ -104,7 +125,9 @@ export default function HomeScreen() {
           {loading ? (
             <View style={styles.center}>
               <ActivityIndicator />
-              <Text style={{ color: COLORS.subtext, marginTop: 8 }}>Loading...</Text>
+              <Text style={{ color: COLORS.subtext, marginTop: 8 }}>
+                Loading...
+              </Text>
             </View>
           ) : (
             featured.map((l) => (
@@ -113,7 +136,10 @@ export default function HomeScreen() {
                 style={styles.rowPress}
                 android_ripple={{ color: "rgba(255,255,255,0.06)" }}
                 onPress={() =>
-                  navigation.navigate("ListingDetails" as never, { listing: l } as never)
+                  navigation.navigate(
+                    "ListingDetails" as never,
+                    { listing: l } as never,
+                  )
                 }
               >
                 <View style={styles.rowLeft}>
@@ -125,7 +151,11 @@ export default function HomeScreen() {
                     </Text>
                   </View>
                 </View>
-                <Ionicons name="chevron-forward" size={18} color={COLORS.subtext} />
+                <Ionicons
+                  name="chevron-forward"
+                  size={18}
+                  color={COLORS.subtext}
+                />
               </Pressable>
             ))
           )}
@@ -221,7 +251,12 @@ const styles = StyleSheet.create({
   },
   link: { color: COLORS.primary, fontWeight: "800" },
 
-  actionsRow: { flexDirection: "row", gap: 10, paddingHorizontal: 12, paddingBottom: 12 },
+  actionsRow: {
+    flexDirection: "row",
+    gap: 10,
+    paddingHorizontal: 12,
+    paddingBottom: 12,
+  },
   action: {
     flex: 1,
     borderRadius: 14,
