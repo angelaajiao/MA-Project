@@ -47,67 +47,21 @@
       "rating": 4.6,
       "rooms": 3
     }
-
-
   ],
   "bookings": [
     {
-      "id": "72e7",
+      "id": "5664",
       "userId": "58a2",
       "listingId": 1,
       "startDate": "2026-01-24",
       "endDate": "2026-01-26",
       "guests": 1,
       "totalPrice": 158,
-      "status": "cancelled",
-      "createdAt": 1769267624744
-    },
-    {
-      "id": "1eca",
-      "userId": "58a2",
-      "listingId": 2,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 240,
-      "status": "cancelled",
-      "createdAt": 1769267636144
-    },
-    {
-      "id": "af4f",
-      "userId": "58a2",
-      "listingId": 1,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 158,
-      "status": "cancelled",
-      "createdAt": 1769267736242
-    },
-    {
-      "id": "4338",
-      "userId": "58a2",
-      "listingId": 1,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 158,
-      "status": "cancelled",
-      "createdAt": 1769268217693
-    },
-    {
-      "id": "3679",
-      "userId": "58a2",
-      "listingId": 2,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 240,
       "status": "active",
-      "createdAt": 1769270299289
+      "createdAt": 1769273831405
     },
     {
-      "id": "4382",
+      "id": "f9a7",
       "userId": "58a2",
       "listingId": 3,
       "startDate": "2026-01-24",
@@ -115,95 +69,7 @@
       "guests": 1,
       "totalPrice": 190,
       "status": "active",
-      "createdAt": 1769270313222
-    },
-    {
-      "id": "0577",
-      "userId": "58a2",
-      "listingId": 3,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 190,
-      "status": "cancelled",
-      "createdAt": 1769270405045
-    },
-    {
-      "id": "a1d1",
-      "userId": "58a2",
-      "listingId": "1",
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-27",
-      "guests": 2,
-      "totalPrice": 237,
-      "status": "cancelled",
-      "createdAt": 1769270509671
-    },
-    {
-      "id": "2cf7",
-      "userId": "58a2",
-      "listingId": "1",
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-27",
-      "guests": 2,
-      "totalPrice": 237,
-      "status": "active",
-      "createdAt": 1769270643907
-    },
-    {
-      "id": "5b73",
-      "userId": "58a2",
-      "listingId": 3,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 190,
-      "status": "active",
-      "createdAt": 1769271041238
-    },
-    {
-      "id": "175b",
-      "userId": "58a2",
-      "listingId": 1,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 158,
-      "status": "active",
-      "createdAt": 1769271645555
-    },
-    {
-      "id": "772c",
-      "userId": "58a2",
-      "listingId": 1,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 158,
-      "status": "active",
-      "createdAt": 1769271703372
-    },
-    {
-      "id": "b4e0",
-      "userId": "58a2",
-      "listingId": 3,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 190,
-      "status": "active",
-      "createdAt": 1769272514071
-    },
-    {
-      "id": "bcd9",
-      "userId": "58a2",
-      "listingId": 1,
-      "startDate": "2026-01-24",
-      "endDate": "2026-01-26",
-      "guests": 1,
-      "totalPrice": 158,
-      "status": "active",
-      "createdAt": 1769272579355
+      "createdAt": 1769273845922
     }
   ]
 }
