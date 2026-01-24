@@ -7,6 +7,17 @@ import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { API_BASE } from "../config/api";
 
+const COLORS = {
+  bg: "#0f1420",
+  card: "#121a2a",
+  border: "#1f2b40",
+  text: "#e8eaed",
+  subtext: "#a8b0bd",
+  primary: "#4c9aff",
+  danger: "#ff5252",
+};
+
+
 
 export default function TripScreen() {
       const { state } = useAppContext();
@@ -83,7 +94,8 @@ export default function TripScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{flex:1, backgroundColor: COLORS.bg}}>
+      <View style={styles.container}>
       {loading ? (
         <ActivityIndicator />
       ) : bookings.length === 0 ? (
@@ -121,6 +133,7 @@ export default function TripScreen() {
           })}
         </ScrollView>
       )}
+      </View>
     </SafeAreaView>
 
   );
@@ -130,35 +143,36 @@ export default function TripScreen() {
 const styles = StyleSheet.create({
  container: {
    flex: 1,
-   paddingHorizontal: 20,
-   paddingTop: 20,
-
-
+    padding: 16,
+    gap:16,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontSize: 22,
+    fontWeight: "900",
+    marginBottom: 16,
+    color: COLORS.text,
   },
   text: {
     fontSize: 16,
-    color: "gray",
+    color: COLORS.subtext,
   },
   card: {
+    backgroundColor: COLORS.card,
     borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    padding: 12,
+    borderColor: COLORS.border,
+    borderRadius: 16,
+    padding: 16,
     marginBottom: 12,
   },
   tripTitle: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "900",
+    color: COLORS.text,
   },
   status: {
     marginTop: 6,
-    fontWeight: "bold",
-    color: "green",
+    fontWeight: "800",
+    color: COLORS.primary,
   },
   cancelBtn: {
     marginTop: 10,

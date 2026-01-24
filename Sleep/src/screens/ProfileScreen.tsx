@@ -4,6 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useAppContext } from "../context/AppContext";
+import { useNavigation } from "@react-navigation/native";
+
 
 const COLORS = {
   bg: "#0f1420",
@@ -18,6 +20,7 @@ const COLORS = {
 export default function ProfileScreen() {
   const { state, setDisplayName, setAvatarUri, logout } = useAppContext();
   const user = state.user;
+  const navigation = useNavigation<any>();
 
   const [name, setName] = useState(user?.displayName ?? "");
 
@@ -91,9 +94,21 @@ export default function ProfileScreen() {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
         <View style={[styles.container, { justifyContent: "center" }]}>
-          <Text style={{ color: COLORS.text, textAlign: "center" }}>
+          <Text style={{ color: COLORS.text, textAlign: "center", marginBottom: 12 }}>
             You are not logged in.
           </Text>
+
+          <Pressable
+            style={styles.primaryBtn}
+            onPress={() =>
+              navigation.reset({
+                index:0,
+                routes:[{ name: "Login"}],
+              })
+            }
+          >
+            <Text style ={styles.primaryBtnText}>Go to Login</Text>
+            </Pressable>
         </View>
       </SafeAreaView>
     );
