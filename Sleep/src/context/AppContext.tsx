@@ -3,7 +3,7 @@ import * as SecureStore from "expo-secure-store";
 import { loadAppData, saveAppData } from "../utils/storage";
 
 export type User = {
-  id: number;
+  id: string;
   email: string;
   displayName: string;
   avatarUri?: string | null;
