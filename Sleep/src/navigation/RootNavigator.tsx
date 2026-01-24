@@ -10,7 +10,7 @@ import ListingDetailsScreen from "../screens/ListingDetailsScreen";
 import TripScreen from "../screens/TripScreen";
 import MainTabs from "./MainTabs";
 import ProfileScreen from "../screens/ProfileScreen";
-
+import BookingScreen from "../screens/BookingScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -69,7 +69,11 @@ export default function RootNavigator() {
           component={ProfileScreen}
           options={{ title: "Profile" }}
         />
-
+        <Stack.Screen
+          name="Booking"
+          component={BookingScreen}
+          options={{ title: "Booking" }}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>

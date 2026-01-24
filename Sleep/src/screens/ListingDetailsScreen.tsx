@@ -31,14 +31,6 @@ export default function ListingDetailsScreen({ route, navigation }: any) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
       <View style={styles.container}>
-        <View style={styles.headerRow}>
-          <Pressable onPress={() => navigation.goBack()} style={styles.backBtn}>
-            <Ionicons name="chevron-back" size={20} color={COLORS.text} />
-          </Pressable>
-          <Text style={styles.headerTitle}>Listing details</Text>
-          <View style={{ width: 40 }} />
-        </View>
-
         <View style={styles.card}>
           <Text style={styles.title}>{listing.title}</Text>
           <Text style={styles.subtitle}>{listing.city}</Text>
@@ -56,8 +48,7 @@ export default function ListingDetailsScreen({ route, navigation }: any) {
           <Pressable
             style={styles.btnPrimary}
             onPress={() => {
-              // más adelante aquí harás POST /bookings
-              alert("Booking not implemented yet");
+              navigation.navigate("Booking", {listing})
             }}
           >
             <Text style={styles.btnPrimaryText}>Book now</Text>
@@ -70,22 +61,6 @@ export default function ListingDetailsScreen({ route, navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, gap: 12 },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  backBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.12)",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  headerTitle: { color: COLORS.text, fontSize: 16, fontWeight: "800" },
-
   card: {
     backgroundColor: COLORS.card,
     borderRadius: 16,
