@@ -20,7 +20,7 @@ const COLORS = {
   primary: "#4c9aff",
 };
 
-const API_BASE = "https://TU_API"; // cámbialo si tienes backend
+const API_BASE = "https://TU_API";
 
 type Listing = {
   id: number;
@@ -38,7 +38,6 @@ export default function HomeScreen() {
   useEffect(() => {
     const loadFeatured = async () => {
       try {
-        // (opcional) GET featured - si no hay API, cae al demo
         const res = await fetch(`${API_BASE}/listings?featured=true`);
         const data = await res.json();
         setFeatured(Array.isArray(data) ? data : []);
