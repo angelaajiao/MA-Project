@@ -7,6 +7,10 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ExploreScreen from "../screens/ExploreScreen";
 import ListingDetailsScreen from "../screens/ListingDetailsScreen";
+import TripScreen from "../screens/TripScreen";
+import MainTabs from "./MainTabs";
+import ProfileScreen from "../screens/ProfileScreen";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -41,11 +45,12 @@ export default function RootNavigator() {
           component={RegisterScreen} 
           options={{ title: "Register" }}
         />
-        <Stack.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          options={{ title: "Home", headerBackVisible: false }}
+        <Stack.Screen
+          name="Home"
+          component={MainTabs}
+          options={{ headerShown: false, headerBackVisible: false }}
         />
+
         <Stack.Screen 
           name="Explore" 
           component={ExploreScreen} 
@@ -55,6 +60,17 @@ export default function RootNavigator() {
           name="ListingDetails" 
           component={ListingDetailsScreen} 
         />
+        <Stack.Screen
+          name="Trips"
+          component={TripScreen}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ title: "Profile" }}
+        />
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );
