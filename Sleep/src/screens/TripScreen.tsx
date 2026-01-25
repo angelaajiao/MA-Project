@@ -6,6 +6,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { API_BASE } from "../config/api";
+import { useNavigation } from "@react-navigation/native";
+
 
 const COLORS = {
   bg: "#0f1420",
@@ -22,6 +24,8 @@ const COLORS = {
 export default function TripScreen() {
       const { state } = useAppContext();
       const user = state.user;
+      const navigation = useNavigation<any>();
+
 
       const [loading, setLoading] = useState(true);
       const [bookings, setBookings] = useState([]);
@@ -121,13 +125,24 @@ export default function TripScreen() {
                 <Text style={styles.text}>Total: €{b.totalPrice}</Text>
 
                 <Text style={styles.status}>{b.status.toUpperCase()}</Text>
-
-                {b.status !== "cancelled" && (
-                  <Pressable style={styles.cancelBtn} onPress={() => cancelBooking(b)}>
-                    <Ionicons name="close-circle-outline" size={18} color="#fff" />
-                    <Text style={styles.cancelText}>Cancel</Text>
+                
+                <View style={styles.actionsRow}>
+                  <Pressable
+                      style={styles.editBtn}
+                      onPress={() => navigation.navigate("EditBooking", { booking: b })}
+                  >
+                    <Ionicons name="create-outline" size={18} color="#0b0e13" />
+                    <Text style={styles.editText}>Edit</Text>
                   </Pressable>
-                )}
+
+
+                  {b.status !== "cancelled" && (
+                    <Pressable style={styles.cancelBtn} onPress={() => cancelBooking(b)}>
+                      <Ionicons name="close-circle-outline" size={18} color="#fff" />
+                      <Text style={styles.cancelText}>Cancel</Text>
+                  </Pressable>
+                  )}
+                </View>
               </View>
             );
           })}
@@ -175,7 +190,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   cancelBtn: {
-    marginTop: 10,
+    flex: 1,
     backgroundColor: "#ff5252",
     paddingVertical: 10,
     borderRadius: 8,
@@ -188,5 +203,26 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
+  actionsRow: {
+  flexDirection: "row",
+  gap: 10,
+  marginTop: 10,
+},
+
+editBtn: {
+  flex: 1,
+  backgroundColor: COLORS.primary,
+  paddingVertical: 10,
+  borderRadius: 8,
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 6,
+},
+
+editText: {
+  color: "#0b0e13",
+  fontWeight: "900",
+},
 
 });

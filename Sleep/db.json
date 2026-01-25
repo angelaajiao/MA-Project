@@ -75,12 +75,13 @@
       "id": "86fa",
       "userId": "68a8",
       "listingId": 1,
-      "startDate": "2026-02-01",
+      "startDate": "2025-12-29",
       "endDate": "2026-02-04",
       "guests": 2,
       "totalPrice": 237,
       "status": "active",
-      "createdAt": 1769297260213
+      "createdAt": 1769297260213,
+      "updatedAt": 1769299884697
     }
   ]
 }

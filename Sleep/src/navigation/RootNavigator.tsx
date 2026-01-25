@@ -11,7 +11,7 @@ import TripScreen from "../screens/TripScreen";
 import MainTabs from "./MainTabs";
 import ProfileScreen from "../screens/ProfileScreen";
 import BookingScreen from "../screens/BookingScreen";
-
+import EditBookingScreen from "../screens/EditBookingScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -74,6 +74,12 @@ export default function RootNavigator() {
           component={BookingScreen}
           options={{ title: "Booking" }}
         />
+        <Stack.Screen
+          name="EditBooking"
+          component={EditBookingScreen}
+          options={{ title: "EditBooking" }}
+        />
+
 
       </Stack.Navigator>
     </NavigationContainer>
