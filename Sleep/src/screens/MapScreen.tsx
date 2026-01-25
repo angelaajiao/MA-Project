@@ -88,7 +88,6 @@ export default function MapScreen() {
           setLoc({ lat: current.coords.latitude, lng: current.coords.longitude });
         }
 
-        // 2) GET listings
         const res = await fetch(`${API_BASE}/listings`, {
           method: "GET",
           headers: {
