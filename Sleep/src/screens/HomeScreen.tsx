@@ -160,13 +160,6 @@ export default function HomeScreen() {
           )}
         </View>
 
-        {/* Tip card */}
-        <View style={styles.tipCard}>
-          <Ionicons name="sparkles-outline" size={18} color={COLORS.primary} />
-          <Text style={styles.tipText}>
-            Tip: Add your location sensor later to show “stays near me”.
-          </Text>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );

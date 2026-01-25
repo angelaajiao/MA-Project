@@ -69,10 +69,38 @@ export default function ExploreScreen() {
       } catch (e: any) {
         setErrorText("Using demo data (API not available).");
         setItems([
-          { id: 1, title: "Cozy Studio near Center", city: "Barcelona", pricePerNight: 79, rating: 4.7, rooms: 1 },
-          { id: 2, title: "Beach Apartment with View", city: "Valencia", pricePerNight: 120, rating: 4.9, rooms: 2 },
-          { id: 3, title: "Modern Loft", city: "Madrid", pricePerNight: 95, rating: 4.6, rooms: 1 },
-          { id: 4, title: "Mountain Cabin", city: "Andorra", pricePerNight: 110, rating: 4.8, rooms: 3 },
+          {
+            id: 1,
+            title: "Cozy Studio near Center",
+            city: "Barcelona",
+            pricePerNight: 79,
+            rating: 4.7,
+            rooms: 1,
+          },
+          {
+            id: 2,
+            title: "Beach Apartment with View",
+            city: "Valencia",
+            pricePerNight: 120,
+            rating: 4.9,
+            rooms: 2,
+          },
+          {
+            id: 3,
+            title: "Modern Loft",
+            city: "Madrid",
+            pricePerNight: 95,
+            rating: 4.6,
+            rooms: 1,
+          },
+          {
+            id: 4,
+            title: "Mountain Cabin",
+            city: "Andorra",
+            pricePerNight: 110,
+            rating: 4.8,
+            rooms: 3,
+          },
         ]);
       } finally {
         setLoading(false);
@@ -87,8 +115,7 @@ export default function ExploreScreen() {
     if (!q) return items;
     return items.filter(
       (l) =>
-        l.title.toLowerCase().includes(q) ||
-        l.city.toLowerCase().includes(q)
+        l.title.toLowerCase().includes(q) || l.city.toLowerCase().includes(q),
     );
   }, [items, query]);
 
@@ -98,11 +125,18 @@ export default function ExploreScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.headerCard}>
           <View style={styles.headerTop}>
             <View style={styles.logo}>
-              <Ionicons name="search-outline" size={20} color={COLORS.primary} />
+              <Ionicons
+                name="search-outline"
+                size={20}
+                color={COLORS.primary}
+              />
             </View>
             <View style={{ flex: 1 }}>
               <Text style={styles.title}>Explore</Text>
@@ -114,7 +148,11 @@ export default function ExploreScreen() {
               android_ripple={{ color: "rgba(255,255,255,0.08)" }}
               onPress={() => navigation.navigate("Profile" as never)}
             >
-              <Ionicons name="person-circle-outline" size={22} color={COLORS.text} />
+              <Ionicons
+                name="person-circle-outline"
+                size={22}
+                color={COLORS.text}
+              />
             </Pressable>
           </View>
 
@@ -132,16 +170,28 @@ export default function ExploreScreen() {
             />
             {query.length > 0 && (
               <Pressable onPress={() => setQuery("")} hitSlop={10}>
-                <Ionicons name="close-circle" size={18} color={COLORS.subtext} />
+                <Ionicons
+                  name="close-circle"
+                  size={18}
+                  color={COLORS.subtext}
+                />
               </Pressable>
             )}
           </View>
 
           {/* chips */}
           <View style={styles.chipsRow}>
-            <Chip text="Top rated" icon="star-outline" />
-            <Chip text="Budget" icon="pricetag-outline" />
-            <Chip text="2+ rooms" icon="bed-outline" />
+            <Pressable
+              style={styles.chip}
+              onPress={() => navigation.navigate("Map")}
+            >
+              <Ionicons
+                name="navigate-outline"
+                size={14}
+                color={COLORS.primary}
+              />
+              <Text style={styles.chipText}>Near me</Text>
+            </Pressable>
           </View>
 
           {errorText ? <Text style={styles.warn}>{errorText}</Text> : null}
@@ -154,11 +204,17 @@ export default function ExploreScreen() {
           {loading ? (
             <View style={styles.center}>
               <ActivityIndicator />
-              <Text style={{ color: COLORS.subtext, marginTop: 8 }}>Loading...</Text>
+              <Text style={{ color: COLORS.subtext, marginTop: 8 }}>
+                Loading...
+              </Text>
             </View>
           ) : filtered.length === 0 ? (
             <View style={styles.center}>
-              <Ionicons name="alert-circle-outline" size={22} color={COLORS.subtext} />
+              <Ionicons
+                name="alert-circle-outline"
+                size={22}
+                color={COLORS.subtext}
+              />
               <Text style={{ color: COLORS.subtext, marginTop: 8 }}>
                 No results. Try another search.
               </Text>
@@ -178,11 +234,16 @@ export default function ExploreScreen() {
                         {l.title}
                       </Text>
                       <Text style={styles.rowValue}>
-                        {l.city} • €{l.pricePerNight}/night • ⭐ {l.rating} • {l.rooms} room(s)
+                        {l.city} • €{l.pricePerNight}/night • ⭐ {l.rating} •{" "}
+                        {l.rooms} room(s)
                       </Text>
                     </View>
                   </View>
-                  <Ionicons name="chevron-forward" size={18} color={COLORS.subtext} />
+                  <Ionicons
+                    name="chevron-forward"
+                    size={18}
+                    color={COLORS.subtext}
+                  />
                 </Pressable>
 
                 {idx !== filtered.length - 1 && <Divider />}
@@ -194,7 +255,6 @@ export default function ExploreScreen() {
     </SafeAreaView>
   );
 }
-
 
 function Chip({
   text,

@@ -12,6 +12,7 @@ import MainTabs from "./MainTabs";
 import ProfileScreen from "../screens/ProfileScreen";
 import BookingScreen from "../screens/BookingScreen";
 import EditBookingScreen from "../screens/EditBookingScreen";
+import MapScreen from "../screens/MapScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,29 +21,29 @@ export default function RootNavigator() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Welcome"
-        screenOptions={{ 
+        screenOptions={{
           headerShown: true,
-          headerStyle :{
+          headerStyle: {
             backgroundColor: "#of14220",
           },
           headerTintColor: "#e8eaed",
-          headerShadowVisible: false, 
-           headerTitleAlign: "center",
-         }}
+          headerShadowVisible: false,
+          headerTitleAlign: "center",
+        }}
       >
-        <Stack.Screen 
-          name="Welcome" 
+        <Stack.Screen
+          name="Welcome"
           component={WelcomeScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="Login" 
-          component={LoginScreen} 
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
           options={{ title: "Login" }}
         />
-        <Stack.Screen 
-          name="Register" 
-          component={RegisterScreen} 
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
           options={{ title: "Register" }}
         />
         <Stack.Screen
@@ -51,19 +52,18 @@ export default function RootNavigator() {
           options={{ headerShown: false, headerBackVisible: false }}
         />
 
-        <Stack.Screen 
-          name="Explore" 
-          component={ExploreScreen} 
+        <Stack.Screen
+          name="Explore"
+          component={ExploreScreen}
           options={{ title: "Explore" }}
         />
-        <Stack.Screen 
-          name="ListingDetails" 
-          component={ListingDetailsScreen} 
-        />
         <Stack.Screen
-          name="Trips"
-          component={TripScreen}
+          name="Map"
+          component={MapScreen}
+          options={{ title: "Map" }}
         />
+        <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
+        <Stack.Screen name="Trips" component={TripScreen} />
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
@@ -79,8 +79,6 @@ export default function RootNavigator() {
           component={EditBookingScreen}
           options={{ title: "EditBooking" }}
         />
-
-
       </Stack.Navigator>
     </NavigationContainer>
   );
