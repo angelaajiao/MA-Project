@@ -27,36 +27,41 @@ const COLORS = {
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
-  const { login } = useAppContext();
+  const { login } = useAppContext(); // extraemos la funcion login() del contexto global 
 
+  // el usuario lo escribe 
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // esto lo hace si falta algo --> por ejemplo el nombre de la persona 
   const initials = useMemo(() => {
     if (!displayName) return "U";
-    const parts = displayName.trim().split(" ");
+    const parts = displayName.trim().split(" "); // quita espcios y separa el nombre en palabras 
     return (
       (parts[0]?.[0]?.toUpperCase() || "U") +
       (parts[1]?.[0]?.toUpperCase() || "")
     );
   }, [displayName]);
 
-  const handleRegister = async () => {
-    if (!email || !displayName || !password || !confirm) {
+
+  // ocurre registro de verdad al pulsar el boton de Register 
+  const handleRegister = async () => { // async --> espera respuestas del servidor 
+    if (!email || !displayName || !password || !confirm) {// comprobamos que no falta nada 
       Alert.alert("Error", "Complete all fields");
       return;
     }
 
-    if (password !== confirm) {
+    if (password !== confirm) { // comprobar que las contraseñas son iguales 
       Alert.alert("Error", "Passwords do not match");
       return;
     }
 
     try {
-      setLoading(true);
+      setLoading(true);// ahora aqui se va a comunicar con el servidor , loading =true --> cambia el texto del boton , y hace esperar al usuario para que no se creen 20 como el 
+      // GET A MI API, si el servidor devuelve a alguien significa que ese email  YA EXISTE
       const existsRes = await fetch(
         `${API_BASE}/users?email=${encodeURIComponent(email.trim().toLowerCase())}`
       );
@@ -67,6 +72,7 @@ export default function RegisterScreen() {
         return;
       }
 
+      // Si no existe --> CREAR USUARIO --> POST (crear)
       const createRes = await fetch(`${API_BASE}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -79,27 +85,31 @@ export default function RegisterScreen() {
       });
 
       if (!createRes.ok) throw new Error("Registration failed");
-      const createdUser = await createRes.json();
+      const createdUser = await createRes.json(); // servidor devuelve el usuario creado
 
+
+      //Simular login automatico --> con esto le decimos a la app que el usuario ya esta logueado
       const fakeToken = `token_${Date.now()}`;
       await login({
         token: fakeToken,
         user: createdUser,
       });
       
+      //mandamos al usuario a HOME
       navigation.reset({
         index: 0,
         routes: [{ name: "Home" as never }],
       });
-    } catch (err) {
+    } catch (err) {// si falla internet o algo --> muestra error 
       Alert.alert("Error", "Registration failed. Please try again.");
     } finally {
-      setLoading(false);
+      setLoading(false); // luego siempre pase lo que pase quita el loading
     }
   };
 
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
+  return ( //LO QUE SE VA A DIBUJAR EN NUESTRA PANTALLA DEL MÓVIL
+    // es la caja exterior --> SafeAreaView 
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}> 
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.headerCard}>
           <View style={styles.avatar}>
