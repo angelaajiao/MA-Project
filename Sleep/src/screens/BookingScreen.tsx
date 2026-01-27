@@ -37,48 +37,48 @@ type Listing = {
   rooms: number;
 };
 
-function parseDate(s: string) {
+function parseDate(s: string) { // rescibe un texto y lo parsea para convertirlos en numero
   // YYYY-MM-DD
-  const [y, m, d] = s.split("-").map((x) => Number(x));
-  if (!y || !m || !d) return null;
-  const dt = new Date(y, m - 1, d);
+  const [y, m, d] = s.split("-").map((x) => Number(x)); // lo convierte en num
+  if (!y || !m || !d) return null; // sia lgo esta mal --> NULL
+  const dt = new Date(y, m - 1, d); //--> crea un fecha real, m-1 porque enero en javsceprt es 0
   if (Number.isNaN(dt.getTime())) return null;
   return dt;
 }
 
 function nightsBetween(start: string, end: string) {
-  const a = parseDate(start);
+  const a = parseDate(start);// convierte los textos en fechas reales
   const b = parseDate(end);
-  if (!a || !b) return 0;
+  if (!a || !b) return 0; // si algo esta mal , entonces 0 noches
   const diff = b.getTime() - a.getTime();
-  const nights = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  return Math.max(0, nights);
+  const nights = Math.ceil(diff / (1000 * 60 * 60 * 24));// convierte milisegundos en días
+  return Math.max(0, nights);// no nº negativos
 }
 
 export default function BookingScreen() {
   const navigation = useNavigation<any>();
-  const route: any = useRoute();
-  const { state } = useAppContext();
+  const route: any = useRoute(); // leer lo que te mandan de la pantalla anterior 
+  const { state } = useAppContext();// el usuario esta logueado
 
-  const listing: Listing | undefined = route.params?.listing;
+  const listing: Listing | undefined = route.params?.listing; // la pantalla espera hast que le lleguen los params , el alojamiento 
 
   const [startDate, setStartDate] = useState("2026-02-01");
   const [endDate, setEndDate] = useState("2026-02-04");
   const [guests, setGuests] = useState("2");
   const [loading, setLoading] = useState(false);
 
-  const nights = useMemo(
+  const nights = useMemo( // cada vez que se cambian las fechas se recalculan las noches
     () => nightsBetween(startDate, endDate),
     [startDate, endDate]
   );
 
-  const guestsNum = useMemo(() => {
+  const guestsNum = useMemo(() => {// func que convierte guests(texto) a nº entero seguro
     const n = Number(guests);
     if (!Number.isFinite(n)) return 0;
-    return Math.max(0, Math.floor(n));
+    return Math.max(0, Math.floor(n));// mathfloor --> para quitar decimales, y max --> para que nunca sea negativo
   }, [guests]);
 
-  const total = useMemo(() => {
+  const total = useMemo(() => { // calcula el precio total
     if (!listing) return 0;
     if (nights <= 0) return 0;
     return nights * listing.pricePerNight;
@@ -90,10 +90,10 @@ export default function BookingScreen() {
     if (!parseDate(startDate) || !parseDate(endDate)) return "Use format YYYY-MM-DD.";
     if (nights <= 0) return "End date must be after start date.";
     if (guestsNum <= 0) return "Guests must be at least 1.";
-    return "";
+    return ""; // esto es que todo esta bien 
   }, [listing, startDate, endDate, nights, guestsNum]);
 
-  const confirmBooking = async () => {
+  const confirmBooking = async () => {// funcion del boton --> confirmar reserva (POST)
     if (validationError) {
       Alert.alert("Error", validationError);
       return;
@@ -106,6 +106,7 @@ export default function BookingScreen() {
       return;
     }
 
+    // datos que se mandan al servidor 
     const payload = {
       userId: state.user.id,
       listingId: listing!.id,
@@ -132,7 +133,7 @@ export default function BookingScreen() {
         throw new Error(t || `HTTP ${res.status}`);
       }
 
-      Alert.alert("Success", "Booking created!");
+      Alert.alert("Success", "Booking created!"); // reserva creada 
       navigation.navigate("Trips"); // en tu proyecto es TripScreen, pero el route suele llamarse "Trips"
     } catch (e) {
       // Para que nunca se rompa si la API no está lista
@@ -188,9 +189,9 @@ export default function BookingScreen() {
           <Field
             icon="log-in-outline"
             label="Start date"
-            value={startDate}
-            onChangeText={setStartDate}
-            placeholder="YYYY-MM-DD"
+            value={startDate}// lo que hay escrito 
+            onChangeText={setStartDate}// guarga loq ue escribes 
+            placeholder="YYYY-MM-DD"// texto gris si esta vacío
           />
           <Divider />
 
@@ -209,7 +210,7 @@ export default function BookingScreen() {
             value={guests}
             onChangeText={setGuests}
             placeholder="e.g. 2"
-            keyboardType="numeric"
+            keyboardType="numeric" // sale teclaod de numeros 
           />
 
           {validationError ? (
